@@ -902,6 +902,36 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: not-allowed; /* makes it look inactive */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #111827; /* dark background */
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* place it above */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show tooltip on hover */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
     </style>
 </head>
 <body>
@@ -919,7 +949,7 @@
     <header class="header">
   <a href="#" class="logo">
     <div class="logo-mark">
-      <img src="images/w3-energy-logo.png" alt="W3 Energy Logo" class="logo-image">
+      <img src="static/images/w3-energy-logo.png" alt="W3 Energy Logo" class="logo-image">
     </div>
     <div class="logo-text">W3 Energy</div>
   </a>
