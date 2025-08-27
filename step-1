@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W3 Energy - Elite Energy Finance Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        /* Ultra-premium animated background */
+        .premium-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 127, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 191, 255, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(147, 51, 234, 0.02) 0%, transparent 50%),
+                        linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+        }
+
+        .energy-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(rgba(0, 255, 127, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 127, 0.1) 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 100px); }
+        }
+
+        .floating-orbs {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .orb:nth-child(1) {
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 127, 0.6);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .orb:nth-child(2) {
+            width: 6px;
+            height: 6px;
+            background: rgba(0, 191, 255, 0.4);
+            top: 70%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .orb:nth-child(3) {
+            width: 3px;
+            height: 3px;
+            background: rgba(147, 51, 234, 0.5);
+            top: 50%;
+            left: 60%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px);
+                opacity: 0.3;
+            }
+            33% { 
+                transform: translateY(-30px) translateX(20px);
+                opacity: 0.8;
+            }
+            66% { 
+                transform: translateY(10px) translateX(-20px);
+                opacity: 0.5;
+            }
+        }
+
+        /* Elite header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(40px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+        }
+
+        .logo-mark {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #00ff7f 0%, #00bfff 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 255, 127, 0.3);
+        }
+
+        .logo-mark::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: #000;
+            border-radius: 10px;
+        }
+
+        .logo-symbol {
+            position: relative;
+            z-index: 1;
+            font-size: 20px;
+            background: linear-gradient(135deg, #00ff7f 0%, #00bfff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #a0a0a0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #00ff7f 0%, #00bfff 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .header-cta {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+        }
+
+        .header-cta:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(0, 255, 127, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 127, 0.1);
+        }
+
+        /* Main container */
+        .main-container {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            position: relative;
+        }
+
+        .signup-wrapper {
+            width: 100%;
+            max-width: 1400px;
+            display: grid;
+            grid-template-columns: 1fr 600px;
+            gap: 80px;
+            align-items: center;
+        }
+
+        /* Left side - Elite marketing */
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 127, 0.1);
+            border: 1px solid rgba(0, 255, 127, 0.2);
+            color: #00ff7f;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .hero-badge-icon {
+            width: 6px;
+            height: 6px;
+            background: #00ff7f;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero-title {
+            font-size: clamp(48px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 0.95;
+            margin-bottom: 32px;
+            letter-spacing: -0.04em;
+            background: linear-gradient(135deg, #ffffff 0%, #00ff7f 50%, #00bfff 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #a0a0a0;
+            line-height: 1.5;
+            margin-bottom: 48px;
+            font-weight: 400;
+        }
+
+        .value-props {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .value-prop {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .prop-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #00ff7f 0%, #00bfff 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .prop-icon::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #000;
+            border-radius: 2px;
+        }
+
+        .prop-content {
+            flex: 1;
+        }
+
+        .prop-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .prop-description {
+            font-size: 14px;
+            color: #808080;
+            line-height: 1.4;
+        }
+
+        .elite-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 48px;
+            padding: 32px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ff7f 0%, #00bfff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #808080;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Right side - Premium form */
+        .signup-card {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signup-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.03) 0%, rgba(0, 191, 255, 0.02) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .signup-card:hover::before {
+            opacity: 1;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .form-subtitle {
+            color: #808080;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* Elite role selection */
+        .role-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .role-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.05) 0%, rgba(0, 191, 255, 0.03) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .role-card:hover::before {
+            opacity: 1;
+        }
+
+        .role-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 255, 127, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 255, 127, 0.1);
+        }
+
+        .role-card.selected {
+            border-color: rgba(0, 255, 127, 0.5);
+            background: rgba(0, 255, 127, 0.05);
+            box-shadow: 0 0 40px rgba(0, 255, 127, 0.15);
+        }
+
+        .role-card input {
+            display: none;
+        }
+
+        .role-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .role-card.selected .role-icon {
+            background: linear-gradient(135deg, #00ff7f 0%, #00bfff 100%);
+        }
+
+        .role-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .role-desc {
+            font-size: 13px;
+            color: #808080;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Premium form inputs */
+        .form-section {
+            margin-bottom: 32px;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #a0a0a0;
+            margin-bottom: 8px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 16px 18px;
+            font-size: 16px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            font-weight: 400;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(0, 255, 127, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 0 4px rgba(0, 255, 127, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #606060;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23808080' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 16px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Password field enhancements */
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #808080;
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.2s;
+        }
+
+        .password-toggle:hover {
+            color: #00ff7f;
+        }
+
+        .password-strength {
+            margin-top: 8px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1px;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            border-radius: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .strength-weak { background: #ff4444; width: 25%; }
+        .strength-fair { background: #ffaa00; width: 50%; }
+        .strength-good { background: #00ff7f; width: 75%; }
+        .strength-strong { background: #00ff7f; width: 100%; box-shadow: 0 0 8px rgba(0, 255, 127, 0.3); }
+
+        .password-reqs {
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .req-item {
+            font-size: 11px;
+            color: #606060;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .req-item.met {
+            color: #00ff7f;
+        }
+
+        .req-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* Terms section */
+        .terms-section {
+            margin-bottom: 32px;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            cursor: pointer;
+        }
+
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .custom-checkbox.checked {
+            background: linear-gradient(135deg, #00ff7f 0%, #00bfff 100%);
+            border-color: transparent;
+            box-shadow: 0 0 12px rgba(0, 255, 127, 0.3);
+        }
+
+        .custom-checkbox input {
+            display: none;
+        }
+
+        .checkbox-mark {
+            color: #000;
+            font-size: 12px;
+            font-weight: 700;
+            display: none;
+        }
+
+        .custom-checkbox.checked .checkbox-mark {
+            display: block;
+        }
+
+        .terms-text {
+            font-size: 14px;
+            color: #a0a0a0;
+            line-height: 1.5;
+        }
+
+        .terms-link {
+            color: #00ff7f;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .terms-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Elite submit button */
+        .submit-container {
+            position: relative;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #00ff7f 0%, #00bfff 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 18px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #000000;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 255, 127, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            color: #606060;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .loading-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(0, 0, 0, 0.3);
+            border-top: 2px solid #000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .login-prompt {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #808080;
+        }
+
+        .login-link {
+            color: #00ff7f;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Success message */
+        .success-message {
+            background: rgba(0, 255, 127, 0.1);
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+            color: #00ff7f;
+            font-size: 14px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Validation states */
+        .form-input.error {
+            border-color: rgba(255, 68, 68, 0.5);
+            box-shadow: 0 0 0 4px rgba(255, 68, 68, 0.1);
+        }
+
+        .form-input.success {
+            border-color: rgba(0, 255, 127, 0.5);
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .main-container {
+                padding: 40px;
+            }
+            
+            .signup-wrapper {
+                gap: 60px;
+                grid-template-columns: 1fr 550px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .signup-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .hero-content {
+                max-width: none;
+            }
+            
+            .elite-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 24px;
+            }
+            
+            .header-nav {
+                display: none;
+            }
+            
+            .main-container {
+                padding: 24px;
+            }
+            
+            .signup-card {
+                padding: 32px 24px;
+            }
+            
+            .role-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .elite-stats {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .password-reqs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Premium background -->
+    <div class="premium-bg">
+        <div class="energy-grid"></div>
+        <div class="floating-orbs">
+            <div class="orb"></div>
+            <div class="orb"></div>
+            <div class="orb"></div>
+        </div>
+    </div>
+
+    <!-- Elite header -->
+    <header class="header">
+        <a href="#" class="logo">
+            <div class="logo-mark">
+                <div class="logo-symbol">W3</div>
+            </div>
+            <div class="logo-text">W3 Energy</div>
+        </a>
+        <nav class="header-nav">
+            <a href="#" class="nav-link">Platform</a>
+            <a href="#" class="nav-link">Projects</a>
+            <a href="#" class="nav-link">Research</a>
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="header-cta">Sign In</a>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <main class="main-container">
+        <div class="signup-wrapper">
+            <!-- Left side - Elite marketing -->
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <div class="hero-badge-icon"></div>
+                    Elite Energy Finance Platform
+                </div>
+                
+                <h1 class="hero-title">The Future of Energy Finance is Here</h1>
+                
+                <p class="hero-subtitle">
+                    Access institutional-grade renewable energy investments, advanced analytics, and direct project funding through the world's most sophisticated energy finance platform.
+                </p>
+
+                <div class="value-props">
+                    <div class="value-prop">
+                        <div class="prop-icon"></div>
+                        <div class="prop-content">
+                            <div class="prop-title">Institutional-Grade Infrastructure</div>
+                            <div class="prop-description">Enterprise security, regulatory compliance, and professional-grade analytics</div>
+                        </div>
+                    </div>
+                    <div class="value-prop">
+                        <div class="prop-icon"></div>
+                        <div class="prop-content">
+                            <div class="prop-title">Advanced Market Intelligence</div>
+                            <div class="prop-description">Real-time performance data, predictive analytics, and market insights</div>
+                        </div>
+                    </div>
+                    <div class="value-prop">
+                        <div class="prop-icon"></div>
+                        <div class="prop-content">
+                            <div class="prop-title">Global Network</div>
+                            <div class="prop-description">Connect with leading investors, developers, and research institutions</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="elite-stats">
+                    <div class="stat">
+                        <div class="stat-number">$2.4B+</div>
+                        <div class="stat-label">Projects Funded</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">847</div>
+                        <div class="stat-label">Active Projects</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">12.4%</div>
+                        <div class="stat-label">Avg. Returns</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right side - Premium signup form -->
+            <div class="signup-card">
+                <div class="form-header">
+                    <h2 class="form-title">Join the Elite</h2>
+                    <p class="form-subtitle">Access the world's premier energy finance platform</p>
+                </div>
+
+                <form id="signupForm" novalidate>
+                    <!-- Role selection -->
+                    <div class="role-section">
+                        <div class="section-title">Select Your Role</div>
+                        <div class="role-grid">
+                            <label class="role-card" for="role-developer">
+                                <input type="radio" name="role" value="project-developer" id="role-developer" required>
+                                <div class="role-icon">🏗️</div>
+                                <div class="role-name">Project Developer</div>
+                                <div class="role-desc">Raise capital, manage projects, engage communities</div>
+                            </label>
+                            <label class="role-card" for="role-investor">
+                                <input type="radio" name="role" value="investor" id="role-investor" required>
+                                <div class="role-icon">💎</div>
+                                <div class="role-name">Investor</div>
+                                <div class="role-desc">Premium investments, governance, exclusive deals</div>
+                            </label>
+                            <label class="role-card" for="role-researcher">
+                                <input type="radio" name="role" value="researcher" id="role-researcher" required>
+                                <div class="role-icon">🧬</div>
+                                <div class="role-name">Researcher</div>
+                                <div class="role-desc">Advanced analytics, data access, research grants</div>
+                            </label>
+                            <label class="role-card" for="role-corporate">
+                                <input type="radio" name="role" value="corporate" id="role-corporate" required>
+                                <div class="role-icon">🏛️</div>
+                                <div class="role-name">Corporate</div>
+                                <div class="role-desc">ESG solutions, carbon management, sustainability</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Personal information -->
+                    <div class="form-section">
+                        <div class="section-title">Personal Information</div>
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label class="form-label">First Name</label>
+                                <input type="text" name="firstName" class="form-input" placeholder="Enter first name" required>
+                                <div class="error-message">Please enter your first name</div>
+                            </div>
+                            <div class="input-group">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" name="lastName" class="form-input" placeholder="Enter last name" required>
+                                <div class="error-message">Please enter your last name</div>
+                            </div>
+                            <div class="input-group full-width">
+                                <label class="form-label">Professional Email</label>
+                                <input type="email" name="email" class="form-input" placeholder="your@company.com" required>
+                                <div class="error-message">Please enter a valid professional email</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Organization -->
+                    <div class="form-section">
+                        <div class="section-title">Organization</div>
+                        <div class="input-grid">
+                            <div class="input-group full-width">
+                                <label class="form-label">Company / Organization</label>
+                                <input type="text" name="company" class="form-input" placeholder="Organization name (optional)">
+                            </div>
+                            <div class="input-group">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" name="phone" class="form-input" placeholder="+1 (555) 000-0000" required>
+                                <div class="error-message">Please enter a valid phone number</div>
+                            </div>
+                            <div class="input-group">
+                                <label class="form-label">Country</label>
+                                <select name="country" class="form-input form-select" required>
+                                    <option value="">Select country</option>
+                                    <option value="US">United States</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="SG">Singapore</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <div class="error-message">Please select your country</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security -->
+                    <div class="form-section">
+                        <div class="section-title">Account Security</div>
+                        <div class="input-grid">
+                            <div class="input-group full-width">
+                                <label class="form-label">Password</label>
+                                <div class="password-container">
+                                    <input type="password" name="password" class="form-input" placeholder="Create secure password" required>
+                                    <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
+                                </div>
+                                <div class="password-strength">
+                                    <div class="strength-bar" id="strengthBar"></div>
+                                </div>
+                                <div class="password-reqs">
+                                    <div class="req-item" id="req-length">
+                                        <div class="req-dot"></div>
+                                        8+ characters
+                                    </div>
+                                    <div class="req-item" id="req-upper">
+                                        <div class="req-dot"></div>
+                                        Uppercase letter
+                                    </div>
+                                    <div class="req-item" id="req-lower">
+                                        <div class="req-dot"></div>
+                                        Lowercase letter
+                                    </div>
+                                    <div class="req-item" id="req-number">
+                                        <div class="req-dot"></div>
+                                        Number
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group full-width">
+                                <label class="form-label">Confirm Password</label>
+                                <div class="password-container">
+                                    <input type="password" name="confirmPassword" class="form-input" placeholder="Confirm password" required>
+                                    <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">👁️</button>
+                                </div>
+                                <div class="error-message">Passwords do not match</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="terms-section">
+                        <label class="checkbox-wrapper">
+                            <div class="custom-checkbox" id="termsCheckbox">
+                                <input type="checkbox" name="acceptTerms" required>
+                                <div class="checkbox-mark">✓</div>
+                            </div>
+                            <div class="terms-text">
+                                I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a>. I consent to receive important communications about W3 Energy services and exclusive opportunities.
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="submit-container">
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <div class="btn-content">
+                                <div class="loading-spinner"></div>
+                                <span class="btn-text">Create Elite Account</span>
+                            </div>
+                        </button>
+
+                        <div class="success-message" id="successMsg">
+                            <span>🚀</span>
+                            Elite account created! Check your email for verification instructions.
+                        </div>
+
+                        <div class="login-prompt">
+                            Already have an account? <a href="#" class="login-link" onclick="showLogin()">Sign in here</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Enhanced elite form functionality
+        let selectedRole = '';
+        const form = document.getElementById('signupForm');
+        
+        // Role selection with premium animations
+        const roleCards = document.querySelectorAll('.role-card');
+        roleCards.forEach(card => {
+            card.addEventListener('click', function() {
+                roleCards.forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedRole = this.querySelector('input').value;
+                
+                // Add premium selection animation
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-4px)';
+                }, 100);
+                
+                validateForm();
+            });
+        });
+
+        // Advanced password strength calculation
+        const passwordInput = document.querySelector('input[name="password"]');
+        const strengthBar = document.getElementById('strengthBar');
+        
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            const strength = calculateAdvancedStrength(password);
+            updateStrengthDisplay(strength);
+            checkPasswordRequirements(password);
+            validateForm();
+        });
+
+        function calculateAdvancedStrength(password) {
+            let score = 0;
+            let strength = 'weak';
+            
+            // Length scoring
+            if (password.length >= 8) score += 25;
+            if (password.length >= 12) score += 10;
+            
+            // Character variety
+            if (/[a-z]/.test(password)) score += 20;
+            if (/[A-Z]/.test(password)) score += 20;
+            if (/\d/.test(password)) score += 20;
+            if (/[^A-Za-z0-9]/.test(password)) score += 15;
+            
+            // Determine strength level
+            if (score >= 85) strength = 'strong';
+            else if (score >= 65) strength = 'good';
+            else if (score >= 40) strength = 'fair';
+            
+            return { score: Math.min(score, 100), level: strength };
+        }
+
+        function updateStrengthDisplay(strengthObj) {
+            strengthBar.className = 'strength-bar strength-' + strengthObj.level;
+        }
+
+        function checkPasswordRequirements(password) {
+            const requirements = {
+                'req-length': password.length >= 8,
+                'req-upper': /[A-Z]/.test(password),
+                'req-lower': /[a-z]/.test(password),
+                'req-number': /\d/.test(password)
+            };
+
+            Object.keys(requirements).forEach(reqId => {
+                const element = document.getElementById(reqId);
+                if (requirements[reqId]) {
+                    element.classList.add('met');
+                } else {
+                    element.classList.remove('met');
+                }
+            });
+        }
+
+        // Premium password visibility toggle
+        function togglePassword(fieldName) {
+            const input = document.querySelector(`input[name="${fieldName}"]`);
+            const button = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                button.textContent = '👁️';
+            }
+        }
+
+        // Enhanced real-time validation
+        const inputs = document.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            input.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    validateField(this);
+                }
+                validateForm();
+            });
+        });
+
+        function validateField(field) {
+            const value = field.value.trim();
+            const fieldName = field.name;
+            let isValid = true;
+            let errorMessage = '';
+
+            // Clear previous states
+            field.classList.remove('error', 'success');
+            const errorElement = field.closest('.input-group').querySelector('.error-message');
+            if (errorElement) errorElement.style.display = 'none';
+
+            // Enhanced validation rules
+            switch(fieldName) {
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    isValid = emailRegex.test(value);
+                    errorMessage = 'Please enter a valid professional email address';
+                    break;
+                
+                case 'phone':
+                    const phoneRegex = /^[\+]?[1-9][\d\s\-\(\)]{7,15}$/;
+                    isValid = phoneRegex.test(value.replace(/[\s\-\(\)]/g, ''));
+                    errorMessage = 'Please enter a valid phone number';
+                    break;
+                
+                case 'password':
+                    const strength = calculateAdvancedStrength(value);
+                    isValid = strength.score >= 65; // Require good or better
+                    errorMessage = 'Password must be stronger (minimum "good" level)';
+                    break;
+                
+                case 'confirmPassword':
+                    const originalPassword = document.querySelector('input[name="password"]').value;
+                    isValid = value === originalPassword && value.length > 0;
+                    errorMessage = 'Passwords do not match';
+                    break;
+                
+                case 'firstName':
+                case 'lastName':
+                    isValid = value.length >= 2 && /^[a-zA-Z\s]+$/.test(value);
+                    errorMessage = `Please enter a valid ${fieldName === 'firstName' ? 'first' : 'last'} name`;
+                    break;
+                
+                case 'country':
+                    isValid = value !== '';
+                    errorMessage = 'Please select your country';
+                    break;
+            }
+
+            // Apply validation result
+            if (field.hasAttribute('required') && value === '') {
+                isValid = false;
+                errorMessage = 'This field is required';
+            }
+
+            if (!isValid) {
+                field.classList.add('error');
+                if (errorElement) {
+                    errorElement.textContent = errorMessage;
+                    errorElement.style.display = 'block';
+                }
+            } else if (value !== '') {
+                field.classList.add('success');
+            }
+
+            return isValid;
+        }
+
+        // Premium checkbox handling
+        const termsCheckbox = document.querySelector('input[name="acceptTerms"]');
+        const customCheckbox = document.getElementById('termsCheckbox');
+        
+        termsCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                customCheckbox.classList.add('checked');
+            } else {
+                customCheckbox.classList.remove('checked');
+            }
+            validateForm();
+        });
+
+        // Enhanced form validation
+        function validateForm() {
+            const requiredFields = form.querySelectorAll('input[required], select[required]');
+            let allValid = true;
+            let roleSelected = document.querySelector('input[name="role"]:checked');
+
+            // Check role selection
+            if (!roleSelected) allValid = false;
+
+            // Check all required fields
+            requiredFields.forEach(field => {
+                if (field.type === 'checkbox') {
+                    if (!field.checked) allValid = false;
+                } else {
+                    if (!field.value.trim()) allValid = false;
+                    if (field.classList.contains('error')) allValid = false;
+                }
+            });
+
+            // Special password strength check
+            const passwordField = document.querySelector('input[name="password"]');
+            if (passwordField.value) {
+                const strength = calculateAdvancedStrength(passwordField.value);
+                if (strength.score < 65) allValid = false;
+            }
+
+            // Update submit button state
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = !allValid;
+        }
+
+        // Premium form submission with animations
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Final validation
+            let allValid = true;
+            inputs.forEach(input => {
+                if (!validateField(input)) allValid = false;
+            });
+
+            if (!document.querySelector('input[name="role"]:checked')) {
+                allValid = false;
+                showPremiumAlert('Please select your role to continue');
+                return;
+            }
+
+            if (!termsCheckbox.checked) {
+                allValid = false;
+                showPremiumAlert('Please accept our terms to create your elite account');
+                return;
+            }
+
+            if (allValid) {
+                submitEliteForm();
+            }
+        });
+
+        function submitEliteForm() {
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const spinner = submitBtn.querySelector('.loading-spinner');
+            const successMsg = document.getElementById('successMsg');
+
+            // Elite loading animation
+            btnText.textContent = 'Creating Elite Account...';
+            spinner.style.display = 'block';
+            submitBtn.disabled = true;
+
+            // Simulate premium API call
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                btnText.textContent = 'Account Created Successfully';
+                successMsg.style.display = 'flex';
+                
+                // Collect elite form data
+                const formData = new FormData(form);
+                const eliteUserData = Object.fromEntries(formData);
+                console.log('Elite user registration:', eliteUserData);
+
+                setTimeout(() => {
+                    showPremiumAlert('Welcome to the elite! Check your email for verification instructions.');
+                    // In real implementation: redirect to email verification
+                    // window.location.href = '/elite/verify-email';
+                }, 2000);
+                
+            }, 3000);
+        }
+
+        function showPremiumAlert(message) {
+            // Custom premium alert (replace with elegant modal in production)
+            alert(message);
+        }
+
+        function showLogin() {
+            showPremiumAlert('Redirecting to elite sign in...');
+            // window.location.href = '/elite/login';
+        }
+
+        // Email availability checking with premium feedback
+        const emailInput = document.querySelector('input[name="email"]');
+        let emailCheckTimeout;
+        
+        emailInput.addEventListener('input', function() {
+            clearTimeout(emailCheckTimeout);
+            const email = this.value.trim();
+            
+            if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                emailCheckTimeout = setTimeout(() => {
+                    checkEliteEmailAvailability(email);
+                }, 800);
+            }
+        });
+
+        function checkEliteEmailAvailability(email) {
+            // Simulate elite email verification
+            const isAvailable = !['admin@elite.com', 'taken@premium.com'].includes(email);
+            const emailField = document.querySelector('input[name="email"]');
+            const errorElement = emailField.closest('.input-group').querySelector('.error-message');
+            
+            if (!isAvailable) {
+                emailField.classList.add('error');
+                errorElement.textContent = 'This email is already registered in our elite network';
+                errorElement.style.display = 'block';
+            } else if (emailField.classList.contains('error')) {
+                validateField(emailField);
+            }
+        }
+
+        // Premium initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elite entrance animation
+            const signupCard = document.querySelector('.signup-card');
+            const heroContent = document.querySelector('.hero-content');
+            
+            signupCard.style.opacity = '0';
+            signupCard.style.transform = 'translateY(40px)';
+            heroContent.style.opacity = '0';
+            heroContent.style.transform = 'translateX(-40px)';
+            
+            setTimeout(() => {
+                heroContent.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                heroContent.style.opacity = '1';
+                heroContent.style.transform = 'translateX(0)';
+            }, 200);
+
+            setTimeout(() => {
+                signupCard.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                signupCard.style.opacity = '1';
+                signupCard.style.transform = 'translateY(0)';
+            }, 400);
+
+            // Initialize validation
+            validateForm();
+        });
+    </script>
+</body>
+</html>
