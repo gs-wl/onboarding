@@ -225,6 +225,29 @@
             border-color: rgba(0, 255, 127, 0.3);
             box-shadow: 0 0 20px rgba(0, 255, 127, 0.1);
         }
+        
+        .dapp-btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            color: #000000;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        [data-theme="brand"] .dapp-btn {
+            color: #ffffff;
+        }
+
+        .dapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 127, 0.3);
+        }
 
         /* Main container */
         .main-container {
@@ -931,35 +954,7 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
-}
-
-        .dapp-btn {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            border: none;
-            color: #000000;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 14px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        [data-theme="brand"] .dapp-btn {
-            color: #ffffff;
-        }
-
-        .dapp-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 255, 127, 0.3);
-        }
-
-        [data-theme="brand"] .dapp-btn:hover {
-            box-shadow: 0 8px 25px rgba(19, 73, 63, 0.3);
-        }
-
+}        
         
     </style>
 </head>
